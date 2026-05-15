@@ -1,0 +1,99 @@
+---
+alwaysApply: true
+---
+
+# Unity プロジェクトルール（Cursor + Unity CLI Loop）
+
+このドキュメントは Cursor で Unity 開発を行うときのプロジェクトルールとして使う。
+
+[Unity CLI Loop](https://github.com/hatayama/unity-cli-loop)（旧 **uLoopMCP**）の **uloop CLI** と **Bundled Skills**（`.cursor/skills/uloop-*`）で Unity Editor を操作する。MCP 接続は将来廃止される可能性があるため、**CLI + Skills を第一選択**とする。
+
+## 一般的なルール
+
+- Composerの履歴タイトル（Summary）は、必ず日本語で簡潔に作成してください。
+- 常に日本語で応答してください。
+
+## ワークフロー（必須）
+
+- AI に「コード編集」だけでなく「Unity Editor 操作」まで担当させ、実行可能な開発ループを閉じる。
+- 変更の正しさは推測ではなく、`uloop compile` / `uloop get-logs` / `uloop run-tests` / PlayMode 実行で検証する。
+- 人手の確認依頼を減らし、AI が自己完結で原因特定と修正ループを回す。
+- 変更単位は小さく保ち、毎回検証してから次に進む。
+
+1. 事前観測: 必要なら `uloop get-hierarchy` / `uloop find-game-objects` で現状を把握する。`get-hierarchy` は JSON をファイルに書き出しパスのみ返すので、返却パスを開いて確認する。
+2. 変更実施: コード編集、または `uloop execute-dynamic-code` で Editor 操作を行う。メニュー実行は `EditorApplication.ExecuteMenuItem` を dynamic code 内で呼ぶ。
+3. コンパイル確認: `uloop compile --wait-for-domain-reload true` を実行する。
+4. ログ確認: `uloop get-logs --log-type Error` を優先し、必要に応じて Warning / All を確認する。ノイズが多いときは先に `uloop clear-console`。
+5. テスト確認: 影響範囲に応じて `uloop run-tests`（`--filter-type` に `exact` / `regex` / `assembly` を使い分ける）。**並列実行禁止**（single-flight）。
+6. 実行確認: ユーザーからのリクエストがあれば PlayMode で検証する。`uloop focus-window` → `uloop control-play-mode` で再生し、`uloop get-logs` と必要なら `uloop screenshot` で確認する。
+7. 完了報告: 実行した検証内容と結果（件数・失敗理由・未解決事項）を明記する。追加でユーザーの手作業が必要な場合は、そのガイドを丁寧に行う。
+
+## 完了条件（Definition of Done）
+
+- `uloop compile` の ErrorCount が 0。
+- 関連テストがすべて成功（または未実施理由を明記）。
+- PlayMode 検証が必要な変更で、再生時の重大エラーが解消済み。
+- 変更内容・検証手順・残課題が日本語で報告されている。
+
+## 例外時
+
+- **Unity に接続できない場合**: Unity 未起動なら `uloop launch`、応答がない・フリーズ時は `uloop launch -r` で再起動してから再試行する。
+- CLI がハング・「Unity is busy」で Unity は起動中のとき: `uloop fix` で lock ファイルを修復して再実行する。
+- `run-tests` や `execute-dynamic-code` が利用不可の場合: **Window > Unity CLI Loop > Settings** の Security Settings（Allow Tests Execution、Dynamic Code Security Level、ツール on/off）を確認する。
+- `run-tests` が未保存シーン・Prefab で失敗した場合: 保存または破棄後に再実行。保存してから走らせるのはユーザー明示時のみ `--save-before-run true`。
+- 自動化が難しい操作は理由を明示し、代替の再現手順を残す。
+
+## ツール選択の原則
+
+- **実行手段**: `uloop <command>` または対応する Skill（`uloop-compile` 等）を使う。MCP は CLI が使えない場合の代替とし、接続不可ならその旨を報告する。
+- **開発ループ**: `compile` → `get-logs` → `run-tests` → `clear-console` を中心に回す。
+- **Editor 操作**: 参照設定・GameObject 配置・Prefab 配線・メニュー実行などは `execute-dynamic-code` を優先する。
+- **構造把握**: `get-hierarchy`（大規模・ファイル出力）、`find-game-objects`（条件検索・選択オブジェクト詳細）。
+- **視覚確認**: `screenshot`（旧 capture-window 相当）。PlayMode UI 操作前は `--capture-mode rendering --annotate-elements` で座標取得し、`simulate-mouse-ui` でクリック・ドラッグする。
+- **PlayMode 入力**:
+  - uGUI（EventSystem）: `simulate-mouse-ui`
+  - ゲームロジック（`Mouse.current` / `Keyboard.current`）: `simulate-mouse-input` / `simulate-keyboard`
+  - 入力の記録・再生: `record-input` / `replay-input`（Input System パッケージ必須）
+- **ログ取得**:
+  - 初動: `uloop get-logs --log-type Error`
+  - 追跡: `--search-text` / `--include-stack-trace` / `--use-regex` / `--search-in-stack-trace`
+  - ノイズ削減: `--max-count` を調整、または `clear-console` 後に再取得
+
+### Bundled Skills（16）
+
+`launch` / `compile` / `get-logs` / `run-tests` / `clear-console` / `focus-window` / `get-hierarchy` / `find-game-objects` / `screenshot` / `simulate-mouse-ui` / `simulate-mouse-input` / `simulate-keyboard` / `record-input` / `replay-input` / `control-play-mode` / `execute-dynamic-code`
+
+> 廃止・非推奨: `unity-search`・`execute-menu-item`・`capture-window` は存在しない。メニューは `execute-dynamic-code`、画面キャプチャは `screenshot` を使う。
+
+## コメント記述ルール
+
+- **丁寧に・可読性**: コメントは、初見のユーザーがコードの内容を把握しやすいよう、丁寧に、かつ可読性を損なわないように行う。
+- **変数**: 変数の宣言部分では、変数の直後に、変数の内容や役割を説明するコメントを入れる。
+- **メソッド**: メソッドのコメントは、処理の内容について１行で説明する。変更の経緯、背景、その他冗長なコメントなどは省略してよい。
+- **パブリックメソッド**: 他のクラスからの利用を想定しているパブリックなメソッドのみ summary 情報を入れ、他は可読性重視でコメント文のみで良い。
+
+## 型記述ルール
+
+- **明示型を優先**: `var` の使用は極力避け、ローカル変数は明示的な型で記述する。右辺だけで型が明白な場合でも、可読性を優先し、型を省略しない。
+
+## 命名ルール
+
+- **簡潔さ**: 変数名は意味が伝わる範囲で短くする。「何であるか」を直接表す名前で、かつ文字数が少ないもの（radius, center, width, height など）を選ぶ。
+- **型でまとめる**: 複数成分がセットで動く情報（位置・速度など）は `Vector2` / `Vector3` にまとめ、成分はプロパティ（`.x`, `.y`）で参照する。ばらした float を増やしすぎない。
+- **軸・成分は接尾辞で**: 軸や成分は長い語（horizon, vertical, row, column, speed, velocity など）より短い接尾辞（X, Y, x, y）に統一する。個別変数にする場合は「意味＋軸」の形に揃える。
+- **一貫したパターン**: 同種の情報は同じ命名パターンで揃える（位置系・速度系・個数・間隔・サイズなど）。
+- **直截な名前**: 冗長な表現や別名は避け、必然性がない限り使わない。
+
+## メソッドの配置順序
+
+初見のユーザーがコードの処理の流れを把握しやすいよう、クラス内のメソッドの配置順序は下記の考え方で常にアップデートする。
+
+- **メインの流れを上に、サブは下に**: エントリポイント（Awake / Start / Update や main / 初期化）を上に並べ、詳細は別メソッドに分けて下に書く。
+- **「何をするか」が上から読める**: メソッド名とコメントで、処理の大きな流れが追えるようにする。
+
+## Unity Editor のインスペクタの整理
+
+- **集約先**: 特に指定のない限り、インスペクタの設定項目は、全体をコントロールする、起点となるクラスのインスペクタに集約する。
+- **Odin の FoldoutGroup**: Unity Editor に Odin Inspector がインストールされている場合、Odin の FoldoutGrouop タグを用いて、設定項目のカテゴリごとに区分けする。
+- **FormerlySerializedAs は使わない**: 変数名やフィールド名を変更する際、インスペクタの一貫性のために `[FormerlySerializedAs("旧名")]` を付けて回らない。名前を変えたらシーンや Prefab で参照が切れることは許容し、必要なら手動で再設定する。
+- **SerializeField は極力使わない**: 他者と共有するプロジェクトではないので、特に private にする必然性がない限り、Unity のインスペクタ設定に出したいときは public 属性をつけるだけでよい。
