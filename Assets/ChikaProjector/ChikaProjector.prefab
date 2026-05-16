@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &278217665680776864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4003582644722556003}
+  - component: {fileID: 3602221609765081967}
+  - component: {fileID: 8596373828069799204}
+  m_Layer: 0
+  m_Name: ChikaProjector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4003582644722556003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278217665680776864}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3602221609765081967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278217665680776864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c4d5e6f7a8901234567890abcdef34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: com.yugop.yFullScreen::yugop.fullscreen.FullScreenToggle
+  fullScreenOnPlay: 0
+  fullScreenKey: 0
+--- !u!114 &8596373828069799204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278217665680776864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3b05ae7941b6f4d895af7d6b4711da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChikaProjector
+  mappingEnabled: 0
+  backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  targetCamera: {fileID: 0}
+  designWidth: 7100
+  designHeight: 950
+  outputWidth: 3840
+  outputHeight: 2160
+  forceOutputResolution: 1
+  fullScreenMode: 1
+  displayLayer: 31
+  displayDepthOffset: 100

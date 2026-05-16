@@ -6,7 +6,7 @@
         "C:\\Users\\yugo\\Desktop\\Tamabi-Git\\ChikaProjectorTool\\Library\\uLoopMCP\\server.bundle.js"
       ],
       "env": {
-        "UNITY_TCP_PORT": "8700"
+        "UNITY_TCP_PORT": "8701"
       }
     }
   }
