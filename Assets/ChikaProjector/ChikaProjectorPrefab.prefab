@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3602221609765081967}
   - component: {fileID: 8596373828069799204}
   m_Layer: 0
-  m_Name: ChikaProjector
+  m_Name: ChikaProjectorPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
