@@ -358,6 +358,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChikaProjectorTool
       objectReference: {fileID: 0}
+    - target: {fileID: 3602221609765081967, guid: f64df383f44456445861ddf2bb7866a6, type: 3}
+      propertyPath: fullScreenOnPlay
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4003582644722556003, guid: f64df383f44456445861ddf2bb7866a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
