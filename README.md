@@ -26,6 +26,8 @@
    | プロジェクター実サイズ | Aspect Ratio | 7100 × 950 |
    | 4K| Fixed Resolution | 3840 × 2160 |
 
+   <img width="500" height="260" alt="image" src="https://github.com/user-attachments/assets/717f88ac-f1ce-4f74-bef0-9c1bc8c48a07" />
+
 
 ### インストール
 
@@ -35,11 +37,18 @@
 
 ### 設定
 
+
+
 1. **`ChikaProjectorPrefab`** をヒエラルキービューにドラッグ＆ドロップし、シーンに追加します。
 2. インスペクタの **ChikaProjector** コンポーネントで **`Mapping Enabled`** にチェックを入れると、マッピングが有効になります。
 3. 同じ Prefab に付いている **FullScreenToggle**（yFullScreen）について:
    - **再生後**、インスペクタで指定したショートカットキー（既定: **F12**）を押すとフルスクリーン再生になります。もう一度 **F12** で解除できます。
    - **`Full Screen On Play`** にチェックすると、再生開始時に自動でフルスクリーンになります。
+   - 
+     
+
+   <img width="426" height="882" alt="image" src="https://github.com/user-attachments/assets/7c645ba8-d5e5-4f92-88bb-26cf4499e551" />
+
 
 ### 想定するワークフロー
 
