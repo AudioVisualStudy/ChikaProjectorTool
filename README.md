@@ -2,6 +2,16 @@
 
 多摩美上野毛キャンパス本館地下の横長プロジェクターにUNITYから出力するためのマッピング変換ツールです。
 
+編集画面
+<img width="640" height="360" alt="image" src="https://github.com/user-attachments/assets/fa11b50a-c8da-4199-9e01-bae713eb0059" />
+
+
+マッピング変換後の再生画面
+<img width="640" height="360" alt="image" src="https://github.com/user-attachments/assets/9ed2ad16-94dc-4579-835b-5d46528495dd" />
+
+
+
+
 ## 必要環境
 
 ### 推奨環境
@@ -54,8 +64,13 @@
 
 1. **コンテンツ制作時**  
    Game View をプロジェクター実サイズ（**7100 × 950**）のプリセットに設定して制作します。
-2. **再生時**  
+   <img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/10918137-a70e-41ea-9744-d519eab1301b" />
+
+3. **再生時**  
    Game View を **4K（3840 × 2160）** のプリセットに切り替え、**`Mapping Enabled`** を ON、**`Full Screen On Play`** を ON にして再生します。
+   <img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/e4ff652c-92b7-47d6-97ad-90c0e631845c" />
+
+   
 
 ### 参考: ChikaProjector の主な項目
 
