@@ -209,13 +209,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.yugop.yfullscreen": {
-      "version": "https://github.com/YProjectGit/yFullScreen.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "8cdeb9739ae1125503047384956edb00cdf29f15"
-    },
     "io.github.hatayama.uloopmcp": {
       "version": "2.1.3",
       "depth": 0,

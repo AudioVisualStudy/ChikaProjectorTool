@@ -57,6 +57,10 @@ Game View の解像度プリセット追加画面の例です。
 1. **Release ページ**から UnityPackage（`.unitypackage`）をダウンロードします。
 2. 自分の Unity プロジェクトで **Assets → Import Package → Custom Package...** からインポートします。
 
+yFullScreen（`FullScreenToggle`）は unitypackage に同梱されているため、**Package Manager から別途インストールする必要はありません**。
+
+> 既に `com.yugop.yfullscreen` を Package Manager で入れている場合は、asmdef 名が重複してコンパイルエラーになることがあります。**UPM 版か unitypackage 版のどちらか一方**だけを使ってください。
+
 ---
 
 ### 設定

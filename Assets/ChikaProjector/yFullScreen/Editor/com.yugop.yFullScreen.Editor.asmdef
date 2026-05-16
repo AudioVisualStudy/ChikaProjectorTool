@@ -1,0 +1,19 @@
+{
+  "name": "com.yugop.yFullScreen.Editor",
+  "rootNamespace": "yugop.fullscreen",
+  "references": [
+    "com.yugop.yFullScreen",
+    "UnityEditor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
