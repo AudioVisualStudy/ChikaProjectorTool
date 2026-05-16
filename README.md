@@ -64,11 +64,11 @@
 
 1. **コンテンツ制作時**  
    Game View をプロジェクター実サイズ（**7100 × 950**）のプリセットに設定して制作します。
-   <img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/10918137-a70e-41ea-9744-d519eab1301b" />
+   <img width="640" height="360" alt="image" src="https://github.com/user-attachments/assets/10918137-a70e-41ea-9744-d519eab1301b" />
 
 3. **再生時**  
    Game View を **4K（3840 × 2160）** のプリセットに切り替え、**`Mapping Enabled`** を ON、**`Full Screen On Play`** を ON にして再生します。
-   <img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/e4ff652c-92b7-47d6-97ad-90c0e631845c" />
+   <img width="640" height="360" alt="image" src="https://github.com/user-attachments/assets/e4ff652c-92b7-47d6-97ad-90c0e631845c" />
 
    
 
